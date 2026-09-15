@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Portfolio from './portfolio.js';
+import ConsultationPage from './ConsultationPage';
 
 function App() {
+  const [showConsultation, setShowConsultation] = useState(false);
+
+  const handleOpenConsultation = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowConsultation(true);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Portfolio onOpenConsultation={handleOpenConsultation} />
+      {showConsultation && (
+        <ConsultationPage onBack={() => setShowConsultation(false)} isModal />
+      )}
     </div>
   );
 }
