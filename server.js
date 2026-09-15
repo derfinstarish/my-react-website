@@ -11,7 +11,7 @@ app.use(express.json());
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const whatsappFrom = process.env.TWILIO_WHATSAPP_FROM;
-const ownerNumber = process.env.OWNER_WHATSAPP_NUMBER || 'whatsapp:+919600416662';
+const ownerNumber = 'whatsapp:+919600416662';
 
 app.post('/api/consultation', async (req, res) => {
   const { fullName, phone, email, service, message } = req.body || {};
