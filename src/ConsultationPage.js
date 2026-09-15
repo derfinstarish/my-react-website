@@ -354,12 +354,16 @@ function ConsultationPage({ onBack, isModal = false }) {
           </div>
 
 
-<Turnstile
-  siteKey="0x4AAAAAAE29xCLh1XWcOoBO"
-  onSuccess={(token) => setTurnstileToken(token)}
-  onExpire={() => setTurnstileToken('')}
-  onError={() => setTurnstileToken('')}
-/>
+        <Turnstile
+          siteKey="0x4AAAAAAE29xCLh1XWcOoBO"
+          options={{
+          appearance: 'always',
+          size: 'normal',
+          }}
+          onSuccess={(token) => setTurnstileToken(token)}
+          onExpire={() => setTurnstileToken('')}
+          onError={() => setTurnstileToken('')}
+        />
 
           <button type="submit" className="submit-btn">Submit Request</button>
 
