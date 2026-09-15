@@ -13,6 +13,16 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const whatsappFrom = process.env.TWILIO_WHATSAPP_FROM;
 const ownerNumber = 'whatsapp:+919600416662';
 
+const normalizePhone = (value) => {
+  const input = String(value).trim();
+  const digits = input.replace(/\D/g, '');
+
+  if (digits.length === 10) return `+91${digits}`;
+  if (digits.length === 11 && digits.startsWith('0')) return `+91${digits.slice(1)}`;
+  if (digits.length === 12 && digits.startsWith('91')) return `+${digits}`;
+  return input.startsWith('+') ? input : `+${digits}`;
+};
+
 app.post('/api/consultation', async (req, res) => {
   const { fullName, phone, email, service, message } = req.body || {};
 
@@ -23,7 +33,7 @@ app.post('/api/consultation', async (req, res) => {
   const details = [
     'New consultation request received:',
     `Name: ${fullName}`,
-    `Phone: ${phone}`,
+    `Phone: ${normalizePhone(phone)}`,
     `Email: ${email}`,
     `Service: ${service}`,
     `Details: ${message}`,
