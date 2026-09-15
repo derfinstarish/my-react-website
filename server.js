@@ -12,11 +12,11 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const whatsappFrom = process.env.TWILIO_WHATSAPP_FROM;
 const ownerNumber = 'whatsapp:+919600416662';
-const whatsappRedirectUrl = 'https://wa.me/919600416662';
+const whatsappRedirectUrl = 'https://api.whatsapp.com/send?phone=919600416662';
 
-// wa.me links require the international number without '+' or 'whatsapp:'.
+// Use WhatsApp's send endpoint so mobile browsers open the app when available.
 app.get('/whatsapp', (req, res) => {
-  res.redirect(whatsappRedirectUrl);
+  res.redirect(302, whatsappRedirectUrl);
 });
 
 const normalizePhone = (value) => {
