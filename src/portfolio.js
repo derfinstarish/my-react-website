@@ -883,6 +883,28 @@ const portfolioStyles = `
       align-items: flex-start;
       padding: 24px 18px;
     }
+
+    /* Position the consultation modal cancel button above the card on small screens. */
+    .consultation-modal .modal-content,
+    .consultation-card,
+    .booking-card {
+      position: relative;
+      margin-top: 40px;
+    }
+
+    .consultation-modal .btn-close,
+    .consultation-modal .cancel-btn,
+    .consultation-card .cancel-btn,
+    .booking-card .cancel-btn {
+      position: absolute;
+      top: -34px;
+      right: 0;
+      z-index: 5;
+      color: #374151 !important;
+      background-color: transparent !important;
+      border: 0 !important;
+      opacity: 1;
+    }
   }
 `;
 
