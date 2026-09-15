@@ -12,6 +12,12 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const whatsappFrom = process.env.TWILIO_WHATSAPP_FROM;
 const ownerNumber = 'whatsapp:+919600416662';
+const whatsappRedirectUrl = 'https://wa.me/919600416662';
+
+// wa.me links require the international number without '+' or 'whatsapp:'.
+app.get('/whatsapp', (req, res) => {
+  res.redirect(whatsappRedirectUrl);
+});
 
 const normalizePhone = (value) => {
   const input = String(value).trim();
@@ -19,7 +25,7 @@ const normalizePhone = (value) => {
 
   if (digits.length === 10) return `+91${digits}`;
   if (digits.length === 11 && digits.startsWith('0')) return `+91${digits.slice(1)}`;
-  if (digits.length === 12 && digits.startsWith('91')) return `+91${digits}`;
+  if (digits.length === 12 && digits.startsWith('91')) return `+${digits}`;
   return input.startsWith('+') ? input : `+${digits}`;
 };
 
