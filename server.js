@@ -1,73 +1,54 @@
-require('dotenv').config();
+const http = require('http');
 
-const express = require('express');
-const twilio = require('twilio');
+const PORT = process.env.PORT || 3000;
+const WHATSAPP_NUMBER = '919600416662'; // India country code + 9600416662
 
-const app = express();
-const port = process.env.PORT || 5000;
+function readBody(request) {
+	return new Promise((resolve, reject) => {
+		let body = '';
+		request.setEncoding('utf8');
+		request.on('data', chunk => {
+			body += chunk;
+			if (body.length > 1024 * 1024) {
+				request.destroy();
+				reject(new Error('Request body is too large'));
+			}
+		});
+		request.on('end', () => resolve(body));
+		request.on('error', reject);
+	});
+}
 
-app.use(express.json());
+function getDetails(body, contentType) {
+	if (contentType.includes('application/json')) return JSON.parse(body || '{}');
+	return Object.fromEntries(new URLSearchParams(body));
+}
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const whatsappFrom = process.env.TWILIO_WHATSAPP_FROM;
-const ownerNumber = 'whatsapp:+919600416662';
-const whatsappRedirectUrl = 'https://api.whatsapp.com/send?phone=919600416662';
+const server = http.createServer(async (request, response) => {
+	if (request.method !== 'POST' || request.url !== '/consultation') {
+		response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+		return response.end('Not found');
+	}
 
-// Use WhatsApp's send endpoint so mobile browsers open the app when available.
-app.get('/whatsapp', (req, res) => {
-  res.redirect(302, whatsappRedirectUrl);
+	try {
+		const details = getDetails(
+			await readBody(request),
+			request.headers['content-type'] || ''
+		);
+		const message = [
+			'New consultation request',
+			...Object.entries(details).map(([key, value]) => `${key}: ${value}`)
+		].join('\n');
+		const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+		response.writeHead(302, { Location: whatsappUrl });
+		response.end();
+	} catch (error) {
+		response.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+		response.end(JSON.stringify({ error: 'Invalid consultation details' }));
+	}
 });
 
-const normalizePhone = (value) => {
-  const input = String(value).trim();
-  const digits = input.replace(/\D/g, '');
-
-  if (digits.length === 10) return `+91${digits}`;
-  if (digits.length === 11 && digits.startsWith('0')) return `+91${digits.slice(1)}`;
-  if (digits.length === 12 && digits.startsWith('91')) return `+${digits}`;
-  return input.startsWith('+') ? input : `+${digits}`;
-};
-
-app.post('/api/consultation', async (req, res) => {
-  const { fullName, phone, email, service, message } = req.body || {};
-
-  if (!fullName || !phone || !email || !service || !message) {
-    return res.status(400).json({ success: false, message: 'Missing required fields' });
-  }
-
-  const details = [
-    'New consultation request received:',
-    `Name: ${fullName}`,
-    `Phone: ${normalizePhone(phone)}`,
-    `Email: ${email}`,
-    `Service: ${service}`,
-    `Details: ${message}`,
-  ].join('\n');
-
-  try {
-    if (!accountSid || !authToken || !whatsappFrom || !ownerNumber) {
-      console.error('Twilio WhatsApp config missing. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WHATSAPP_FROM, and OWNER_WHATSAPP_NUMBER.');
-      return res.status(500).json({
-        success: false,
-        message: 'WhatsApp notification is not configured yet.',
-      });
-    }
-
-    const client = twilio(accountSid, authToken);
-    await client.messages.create({
-      from: whatsappFrom,
-      to: ownerNumber,
-      body: details,
-    });
-
-    return res.json({ success: true, message: 'Consultation sent successfully.' });
-  } catch (error) {
-    console.error('WhatsApp send failed:', error);
-    return res.status(500).json({ success: false, message: 'Failed to send notification.' });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+server.listen(PORT, () => {
+	console.log(`Consultation server running on port ${PORT}`);
 });
