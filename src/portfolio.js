@@ -900,10 +900,17 @@ const portfolioStyles = `
       top: -34px;
       right: 0;
       z-index: 5;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 6px 12px;
       color: #374151 !important;
       background-color: transparent !important;
       border: 0 !important;
       opacity: 1;
+      visibility: visible !important;
+      pointer-events: auto;
     }
   }
 `;

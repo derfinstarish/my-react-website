@@ -249,7 +249,7 @@ function ConsultationPage({ onBack, isModal = false }) {
       `Details: ${data.message || 'No additional details'}`,
     ].join('\n');
 
-    const customerWhatsAppUrl = `https://wa.me/9600416662?text=${encodeURIComponent(customerMessage)}`;
+    const customerWhatsAppUrl = `https://wa.me/919600416662?text=${encodeURIComponent(customerMessage)}`;
 
     setSubmitted(true);
 
