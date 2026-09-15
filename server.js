@@ -1,8 +1,6 @@
 const http = require('http');
 
 const PORT = process.env.PORT || 3000;
-const WHATSAPP_NUMBER = '919600416662'; // India country code + 9600416662
-
 function readBody(request) {
 	return new Promise((resolve, reject) => {
 		let body = '';
@@ -35,12 +33,15 @@ const server = http.createServer(async (request, response) => {
 			await readBody(request),
 			request.headers['content-type'] || ''
 		);
+		const submittedNumber = details.mobile || details.phone || details.mobileNumber || details.whatsapp;
+		const whatsappNumber = String(submittedNumber || '').replace(/[^\d]/g, '');
+		if (!whatsappNumber) throw new Error('Mobile number is required');
 		const message = [
 			'New consultation request',
 			...Object.entries(details).map(([key, value]) => `${key}: ${value}`)
 		].join('\n');
 		// Use WhatsApp's universal send endpoint for better compatibility on mobile browsers.
-		const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
+		const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
 
 		response.writeHead(302, { Location: whatsappUrl });
 		response.end();
