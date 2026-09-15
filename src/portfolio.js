@@ -917,6 +917,20 @@ const portfolioStyles = `
 
 export function Portfolio({ onOpenConsultation }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const consultationServices = [
+    'Building Constructions',
+    'Export & Import',
+    'Real Estate',
+    'Legal Service',
+    'E-Services',
+    'All Types of Approvals',
+    'Abroad Studies & Jobs',
+    'Finance',
+    'Textiles',
+    'Tailoring',
+  ];
+
+  const openConsultation = () => onOpenConsultation({ services: consultationServices });
 
   return (
     <>
@@ -952,14 +966,14 @@ export function Portfolio({ onOpenConsultation }) {
                 <li className="nav-item"><a className="nav-link" href="#projects" onClick={() => setIsMenuOpen(false)}>Projects</a></li>
                 <li className="nav-item"><a className="nav-link" href="#contact" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
                 <li className="nav-item mobile-cta">
-                  <button type="button" className="nav-cta" aria-label="Book consultation" onClick={onOpenConsultation}>
+                  <button type="button" className="nav-cta" aria-label="Book consultation" onClick={openConsultation}>
                     <span>Book Consultation</span>
                   </button>
                 </li>
               </ul>
             </div>
 
-            <button type="button" className="nav-cta desktop-cta" aria-label="Book consultation" onClick={onOpenConsultation}>
+            <button type="button" className="nav-cta desktop-cta" aria-label="Book consultation" onClick={openConsultation}>
               <span>Book Consultation</span>
             </button>
           </div>
@@ -1185,7 +1199,7 @@ export function Portfolio({ onOpenConsultation }) {
                   <h3>Need a reliable partner for your next step?</h3>
                   <p>Let’s build your future with confidence and clarity.</p>
                 </div>
-                <button type="button" className="nav-cta" aria-label="Book consultation" onClick={onOpenConsultation}>Book Consultation</button>
+                <button type="button" className="nav-cta" aria-label="Book consultation" onClick={openConsultation}>Book Consultation</button>
               </div>
             </div>
           </section>

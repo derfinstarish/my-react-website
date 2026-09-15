@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Turnstile } from '@marsidev/react-turnstile';
 const consultationStyles = `
   * { box-sizing: border-box; }
   body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -231,9 +231,15 @@ const consultationStyles = `
 
 function ConsultationPage({ onBack, isModal = false }) {
   const [submitted, setSubmitted] = useState(false);
-
+  const [turnstileToken, setTurnstileToken] = useState('');
   const handleSubmit = async (event) => {
   event.preventDefault();
+
+  if (!turnstileToken) {
+  alert('Please complete the robot verification.');
+  return;
+}
+
   const form = event.currentTarget;
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
@@ -255,7 +261,7 @@ function ConsultationPage({ onBack, isModal = false }) {
   setSubmitted(true);
 
   try {
-    await fetch('/api/consultation', {
+   const verificationResponse = await fetch('/.netlify/functions/consultation', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -264,8 +270,16 @@ function ConsultationPage({ onBack, isModal = false }) {
         email: data.email,
         service: data.service,
         message: data.message,
+        turnstileToken: turnstileToken,
       }),
     });
+
+    const verificationResult = await verificationResponse.json();
+
+  if (!verificationResponse.ok || !verificationResult.success) {
+    alert('Robot verification failed. Please try again.');
+    return;
+  }
 
     form.reset();
 
@@ -338,6 +352,14 @@ function ConsultationPage({ onBack, isModal = false }) {
             <label htmlFor="message">Project Details</label>
             <textarea id="message" name="message" placeholder="Tell us about your requirements or goals" required />
           </div>
+
+
+<Turnstile
+  siteKey="0x4AAAAAAE29xCLh1XWcOoBO"
+  onSuccess={(token) => setTurnstileToken(token)}
+  onExpire={() => setTurnstileToken('')}
+  onError={() => setTurnstileToken('')}
+/>
 
           <button type="submit" className="submit-btn">Submit Request</button>
 
