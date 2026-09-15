@@ -233,49 +233,48 @@ function ConsultationPage({ onBack, isModal = false }) {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+  event.preventDefault();
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
 
-    const customerMessage = [
-      'Hello Rishion Groups,',
-      '',
-      'I would like to book a consultation.',
-      `Name: ${data.fullName || 'Not provided'}`,
-      `Phone: ${data.phone || 'Not provided'}`,
-      `Email: ${data.email || 'Not provided'}`,
-      `Service: ${data.service || 'Not provided'}`,
-      `Details: ${data.message || 'No additional details'}`,
-    ].join('\n');
+  const customerMessage = [
+    'Hello Rishion Groups,',
+    '',
+    'I would like to book a consultation.',
+    `Name: ${data.fullName || 'Not provided'}`,
+    `Phone: ${data.phone || 'Not provided'}`,
+    `Email: ${data.email || 'Not provided'}`,
+    `Service: ${data.service || 'Not provided'}`,
+    `Details: ${data.message || 'No additional details'}`,
+  ].join('\n');
 
-    const customerWhatsAppUrl = `https://wa.me/919600416662?text=${encodeURIComponent(customerMessage)}`;
+  const customerWhatsAppUrl =
+    `https://wa.me/919600416662?text=${encodeURIComponent(customerMessage)}`;
 
-    setSubmitted(true);
+  setSubmitted(true);
 
-    try {
-      await fetch('/api/consultation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fullName: data.fullName,
-          phone: data.phone,
-          email: data.email,
-          service: data.service,
-          message: data.message,
-        }),
-      });
+  try {
+    await fetch('/api/consultation', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fullName: data.fullName,
+        phone: data.phone,
+        email: data.email,
+        service: data.service,
+        message: data.message,
+      }),
+    });
 
-      form.reset();
+    form.reset();
 
-      setTimeout(() => {
-        window.open(customerWhatsAppUrl, '_blank', 'noopener,noreferrer');
-      }, 1200);
-    } catch (error) {
-      console.error('Consultation submission failed:', error);
-    }
-  };
+    window.location.href = customerWhatsAppUrl;
 
+  } catch (error) {
+    console.error('Consultation submission failed:', error);
+  }
+};
   const content = (
     <div className="consultation-card">
       <div className="consultation-info">
