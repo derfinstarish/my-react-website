@@ -39,7 +39,8 @@ const server = http.createServer(async (request, response) => {
 			'New consultation request',
 			...Object.entries(details).map(([key, value]) => `${key}: ${value}`)
 		].join('\n');
-		const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+		// Use WhatsApp's universal send endpoint for better compatibility on mobile browsers.
+		const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
 
 		response.writeHead(302, { Location: whatsappUrl });
 		response.end();
