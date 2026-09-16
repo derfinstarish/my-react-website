@@ -1062,7 +1062,7 @@ export function Portfolio({ onOpenConsultation }) {
                 </article>
 
                 <article className="service-card">
-                  <img className="service-image" src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80" alt="Approvals" />
+                  <img className="service-image" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80" alt="Approvals and documentation" />
                   <div className="service-body">
                     <h3>All Types of Approvals</h3>
                     <p>Assistance for licenses, permits and approvals required for business and construction success.</p>
@@ -1078,7 +1078,7 @@ export function Portfolio({ onOpenConsultation }) {
                 </article>
 
                 <article className="service-card">
-                  <img className="service-image" src="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=900&q=80" alt="Loans" />
+                  <img className="service-image" src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=900&q=80" alt="Loans and financial planning" />
                   <div className="service-body">
                     <h3>All Types of Loans</h3>
                     <p>Support in securing the right lending options for personal, business and investment needs.</p>
@@ -1086,7 +1086,7 @@ export function Portfolio({ onOpenConsultation }) {
                 </article>
 
                 <article className="service-card">
-                  <img className="service-image" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Real estate" />
+                  <img className="service-image" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80" alt="Real estate property" />
                   <div className="service-body">
                     <h3>Real Estate</h3>
                     <p>Property opportunities, sales support and advisory for buyers, investors and developers.</p>
@@ -1094,7 +1094,7 @@ export function Portfolio({ onOpenConsultation }) {
                 </article>
 
                 <article className="service-card">
-                  <img className="service-image" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80" alt="E-services" />
+                  <img className="service-image" src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80" alt="Digital e-services" />
                   <div className="service-body">
                     <h3>E-Services</h3>
                     <p>Fast digital support for registrations, documentation, government services and online processes.</p>
@@ -1158,7 +1158,7 @@ export function Portfolio({ onOpenConsultation }) {
 
               <div className="services-grid">
                 <article className="service-card">
-                  <img className="service-image" src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80" alt="Abroad service" />
+                  <img className="service-image" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80" alt="Abroad travel service" />
                   <div className="service-body">
                     <h3>Abroad Service</h3>
                     <p>Career, migration, and relocation support to help you move confidently across borders.</p>
@@ -1166,7 +1166,7 @@ export function Portfolio({ onOpenConsultation }) {
                 </article>
 
                 <article className="service-card">
-                  <img className="service-image" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Jobs" />
+                  <img className="service-image" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80" alt="Jobs and careers" />
                   <div className="service-body">
                     <h3>Jobs</h3>
                     <p>Guidance for employment opportunities and career connections that match your potential.</p>
@@ -1182,7 +1182,7 @@ export function Portfolio({ onOpenConsultation }) {
                 </article>
 
                 <article className="service-card">
-                  <img className="service-image" src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=900&q=80" alt="Business support" />
+                  <img className="service-image" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=900&q=80" alt="Business support team" />
                   <div className="service-body">
                     <h3>Business Support</h3>
                     <p>Strategic support for entrepreneurs seeking trusted advisory and execution assistance.</p>
