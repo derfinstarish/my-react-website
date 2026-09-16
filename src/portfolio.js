@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logo from './Logo.jpeg';
 import tiloring from './tiloring.jpeg';
-
+import importing from './importing.jpg';
 const portfolioStyles = `
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -1046,7 +1046,7 @@ export function Portfolio({ onOpenConsultation }) {
                 </article>
 
                 <article className="service-card">
-                  <img className="service-image" src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=80" alt="Export and import" />
+                  <img className="service-image" src="rishiongroupsweb/src/import.jpg" alt="Export and import" />
                   <div className="service-body">
                     <h3>Export & Import</h3>
                     <p>End-to-end international trade support with sourcing, documentation and shipment coordination.</p>
