@@ -1046,7 +1046,7 @@ export function Portfolio({ onOpenConsultation }) {
                 </article>
 
                 <article className="service-card">
-                  <img className="service-image" src="rishiongroupsweb/src/import.jpg" alt="Export and import" />
+                  <img className="service-image" src={importing} alt="Export and import" />
                   <div className="service-body">
                     <h3>Export & Import</h3>
                     <p>End-to-end international trade support with sourcing, documentation and shipment coordination.</p>
